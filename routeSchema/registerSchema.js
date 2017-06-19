@@ -3,9 +3,10 @@ var express = require('express');
 var schema = mongoose.Schema;
 var register = new schema(
 {
-	email : {type : String},
-	password :{type: String}
-	
+	number : {type : Number},
+	email :{type: String},
+	otp :{type: Number}
+
 }
 );
 module.exports = mongoose.model('registration',register);
