@@ -1,12 +1,19 @@
 var regController = angular.module('registerControllerModule',[]);
-regController.controller('regController',['$scope','sampleService',function($scope,sampleService){
+regController.controller('regController',['$scope','sampleService','$state','AuthToken',function($scope,sampleService,$state,AuthToken){
     console.log('hai');
     $scope.saveRegistration = function(){
         console.log($scope.registration);
         sampleService.postRegistration($scope.registration).then(
             function(res){
-                if(res.success == true){
-                    console.log(res);
+                if(res.data.success == true){
+                    if($state.current = 'register'){
+                        console.log(res);
+                    $state.go('otp');}
+                    if($state.current = 'otp' && $scope.registration.otp && res.data.data !== null){
+                        console.log(res);
+                        AuthToken.setToken(res.data.token);
+                        $state.go('success');}
+
                 }
             },
             function(err){
